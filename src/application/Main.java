@@ -1,25 +1,37 @@
 package application;
-	
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.stage.Stage;
 
 public class Main extends Application {
+	
+	private static Scene cenaPrincipal;
+	
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage palco) {
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/TelaPrincipal.fxml"));
+			ScrollPane scrollPane = loader.load();
+			scrollPane.setFitToHeight(true);
+			scrollPane.setFitToWidth(true);
+			cenaPrincipal = new Scene(scrollPane);
+			palco.setScene(cenaPrincipal);
+			palco.setTitle("Aplicação JavaFX JDBC");
+			palco.show();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public static Scene getCenaPrincipal() {
+		return cenaPrincipal;
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}
